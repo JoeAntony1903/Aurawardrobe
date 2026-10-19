@@ -1,0 +1,96 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with display name and preferences",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["email", "createdAt"]
+    },
+    "WardrobeItem": {
+      "title": "WardrobeItem",
+      "description": "Individual clothing item in user's digital wardrobe",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "color": { "type": "string" },
+        "brand": { "type": "string" },
+        "season": { "type": "string" },
+        "material": { "type": "string" },
+        "image": { "type": "string" },
+        "pairedItemIds": { "type": "array" },
+        "tags": { "type": "array" },
+        "dateAdded": { "type": "string" },
+        "notes": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["name", "category", "color", "brand", "season", "image", "userId"]
+    },
+    "Outfit": {
+      "title": "Outfit",
+      "description": "Assembled combination of wardrobe items",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "itemIds": { "type": "array" },
+        "occasion": { "type": "string" },
+        "isFavorite": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "notes": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["name", "itemIds", "occasion", "userId"]
+    },
+    "WeeklyScheduleDay": {
+      "title": "WeeklyScheduleDay",
+      "description": "Scheduled outfit for a specific day of the week",
+      "type": "object",
+      "properties": {
+        "day": { "type": "string" },
+        "outfitId": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["day", "userId"]
+    },
+    "AIPreference": {
+      "title": "AIPreference",
+      "description": "Learned AI rejection patterns and style affinity weights",
+      "type": "object",
+      "properties": {
+        "rejectedPairKeys": { "type": "array" },
+        "feedbackLogs": { "type": "array" },
+        "updatedAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile information"
+    },
+    "/users/{userId}/wardrobeItems/{itemId}": {
+      "schema": "WardrobeItem",
+      "description": "Wardrobe items belonging to the user"
+    },
+    "/users/{userId}/outfits/{outfitId}": {
+      "schema": "Outfit",
+      "description": "Saved outfits created by the user"
+    },
+    "/users/{userId}/schedule/{dayId}": {
+      "schema": "WeeklyScheduleDay",
+      "description": "Weekly schedule assignments"
+    },
+    "/users/{userId}/aiPreferences/{prefId}": {
+      "schema": "AIPreference",
+      "description": "AI roulette learned weights and rejection feedback"
+    }
+  }
+}
